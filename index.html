@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>range in javascript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {  
+            width: 100%;
+            height: 100vh; 
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .c {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            color: #fff;
+        }
+        .box {
+            width: 100%;
+            min-height: 5vh;
+            /* background: #787878; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+
+        }
+        input[id^=r] {
+            width: 30%; 
+            outline: none;
+        }
+        .box span[id^=s] {
+            width: 100px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            border-radius:0 10px 10px 0;
+            color: #fff;
+            box-shadow: 3px 3px 3px #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        input[id^=r] + span {
+            width: 50px;
+            height: 50px;
+            background: #000;
+            transform: rotate(-45deg) translate(50%,50%);
+            box-shadow: 0 0 8px #fff;
+            z-index: -1;
+        }
+        @media screen and (max-width: 400px) {
+            .c h1 {
+                font-size: 25px;
+            }
+        }
+        @media screen and (max-width: 998px) {
+            input[id^=r] {
+                width: 46%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="c">
+        <h1></h1>
+        <div class="box">
+            <input type="range" value="100" name="range" id="r1" min="0" max="255" step="1">
+            <span></span>
+            <span id="s1"></span>
+        </div>
+
+        <div class="box">
+            <input type="range" value="200" name="range" id="r2" min="0" max="255" step="1">
+            <span></span>
+            <span id="s2"></span>
+        </div>
+
+        <div class="box">
+            <input type="range" value="200" name="range" id="r3" min="0" max="255" step="1">
+            <span></span>
+            <span id="s3"></span>
+        </div>
+
+        <div class="box">
+            <input type="range" value="0.99" name="range" id="r4" min="0" max="1" step="0.01">
+            <span></span>
+            <span id="s4"></span>
+        </div>
+    </div>
+
+    <script>
+        var r,g,b,c,a;
+
+        r=document.querySelector("#r1").value
+        g=document.querySelector("#r2").value
+        b=document.querySelector("#r3").value
+        a=document.querySelector("#r4").value
+
+        document.getElementById("s1").innerText="R : "+r;
+        document.getElementById("s2").innerText="G : " + g;
+        document.getElementById("s3").innerText="B : " + b;
+        document.getElementById("s4").innerText="A : " + a;
+
+        c="rgba(" + r + "," + g +"," + b + "," + a + ")";
+
+        document.body.style.background=c;
+
+        document.querySelector("h1").innerText=c;
+
+        document.getElementById("r1").addEventListener("input",ran);
+        document.getElementById("r2").addEventListener("input",ran);
+        document.getElementById("r3").addEventListener("input",ran);
+        document.getElementById("r4").addEventListener("input",ran);
+
+        setInterval(r1,60);
+
+        function r1() {
+            r=document.querySelector("#r1").value
+            g=document.querySelector("#r2").value
+            b=document.querySelector("#r3").value
+            a=document.querySelector("#r4").value
+            r++;
+            g--;// g++;
+            b++;
+    
+            if(r==256) {
+                r=0;
+            }
+            if(g==-1) {
+                g=255;
+            }
+            if(b==256) {
+                b=0;
+            }
+            
+            
+            c="rgba(" + r + "," + g +"," + b + "," + a + ")";
+            
+            document.querySelector("#r1").value=r;
+            document.querySelector("#r2").value=g;
+            document.querySelector("#r3").value=b;
+
+            document.body.style.background=c;
+            document.querySelector("h1").innerText=c;
+
+            document.getElementById("s1").innerText="R : "+r;
+            document.getElementById("s2").innerText="G : " + g;
+            document.getElementById("s3").innerText="B : " + b;
+            document.getElementById("s4").innerText="A : " + a;
+        }
+        function ran() {
+            
+            r=document.querySelector("#r1").value;
+            g=document.querySelector("#r2").value;
+            b=document.querySelector("#r3").value;
+            a=document.querySelector("#r4").value;
+            
+            c="rgba(" + r + "," + g +"," + b + "," + a + ")";
+
+            document.body.style.background=c;
+
+            document.querySelector("h1").innerText=c;
+            if(0.4>a) {
+                document.querySelector("h1").style.color="#000";
+            }
+            else {
+                document.querySelector("h1").style.color="#fff";
+            }
+            document.getElementById("s1").innerText="R : "+r;
+            document.getElementById("s2").innerText="G : " + g;
+            document.getElementById("s3").innerText="B : " + b;
+            document.getElementById("s4").innerText="A : " + a;
+            
+        }
+    </script>
+</body>
+</html>
